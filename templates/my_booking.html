@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}My Booking — Smart Parking System{% endblock %}
+
+{% block content %}
+<div class="my-booking-container">
+    <div class="page-header">
+        <h1><i class="fa-solid fa-ticket"></i> My Parking Bookings</h1>
+        <p>Manage your active parking reservation and review past history</p>
+    </div>
+
+    <!-- Active Booking Section -->
+    <div class="section-card active-booking-section">
+        <h2><i class="fa-solid fa-bookmark"></i> Current Active Reservation</h2>
+
+        {% if current_booking %}
+            <div class="active-booking-box">
+                <div class="ab-grid">
+                    <div class="ab-field">
+                        <span class="field-label">Booking ID</span>
+                        <span class="field-value code">{{ current_booking.booking_code }}</span>
+                    </div>
+                    <div class="ab-field">
+                        <span class="field-label">Vehicle Number</span>
+                        <span class="field-value">{{ current_booking.vehicle_number }}</span>
+                    </div>
+                    <div class="ab-field">
+                        <span class="field-label">Reserved Parking Slot</span>
+                        <span class="field-value slot-highlight">{{ current_booking.slot_number }}</span>
+                    </div>
+                    <div class="ab-field">
+                        <span class="field-label">Slot Type</span>
+                        <span class="field-value">{{ current_booking.slot_type }}</span>
+                    </div>
+                    <div class="ab-field">
+                        <span class="field-label">Booking Time</span>
+                        <span class="field-value">{{ current_booking.booking_time }}</span>
+                    </div>
+                    <div class="ab-field">
+                        <span class="field-label">Status</span>
+                        <span class="field-value"><span class="badge badge-warning">{{ current_booking.status }}</span></span>
+                    </div>
+                </div>
+
+                <div class="ab-actions">
+                    <form action="{{ url_for('cancel_booking', booking_id=current_booking.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this booking and free the slot?');">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-ban"></i> Cancel Booking & Free Slot
+                        </button>
+                    </form>
+                    <a href="{{ url_for('parking') }}" class="btn btn-outline">
+                        <i class="fa-solid fa-map-location-dot"></i> View on Parking Layout
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="no-booking-box">
+                <i class="fa-solid fa-calendar-xmark icon-large"></i>
+                <p>You currently do not have an active parking reservation.</p>
+                <a href="{{ url_for('find_parking') }}" class="btn btn-primary mt-3">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Find & Reserve Parking Slot
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Booking History Table -->
+    <div class="section-card history-section mt-4">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Reservation History</h2>
+        
+        {% if history %}
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Vehicle Number</th>
+                            <th>Slot</th>
+                            <th>Booking Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in history %}
+                            <tr>
+                                <td><code class="code">{{ b.booking_code }}</code></td>
+                                <td>{{ b.vehicle_number }}</td>
+                                <td><strong>{{ b.slot_number }}</strong></td>
+                                <td>{{ b.booking_time }}</td>
+                                <td>
+                                    <span class="badge badge-{{ b.status | lower }}">{{ b.status }}</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No booking history recorded yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

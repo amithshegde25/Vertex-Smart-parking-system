@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Smart Parking System{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <div class="form-header">
+    <h2>Create Account</h2>
+    <p>Register to manage your vehicle and reserve parking slots</p>
+  </div>
+
+  <form action="{{ url_for('register') }}" method="POST" id="register-form">
+    <div class="form-group">
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="name" class="form-control" placeholder="e.g. John Doe" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" class="form-control" placeholder="e.g. john@example.com" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password *</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Minimum 6 characters" required minlength="6">
+    </div>
+
+    <div class="form-group">
+      <label for="confirm_password">Confirm Password *</label>
+      <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Re-enter password" required minlength="6">
+    </div>
+
+    <div class="form-group">
+      <label for="vehicle_number">Vehicle Registration Number *</label>
+      <input type="text" id="vehicle_number" name="vehicle_number" class="form-control" placeholder="e.g. KA01AB1234" required style="text-transform: uppercase;">
+    </div>
+
+    <div class="form-group">
+      <label for="vehicle_type">Vehicle Type *</label>
+      <select id="vehicle_type" name="vehicle_type" class="form-control" required>
+        <option value="Car" selected>Car</option>
+        <option value="SUV">SUV</option>
+        <option value="Two-Wheeler">Two-Wheeler</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">Register Account</button>
+  </form>
+
+  <div class="form-footer">
+    Already have an account? <a href="{{ url_for('login') }}">Log in here</a>
+  </div>
+</div>
+{% endblock %}

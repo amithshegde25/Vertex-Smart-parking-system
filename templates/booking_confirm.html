@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Confirmed — Smart Parking System{% endblock %}
+
+{% block content %}
+<div class="confirm-container">
+    <div class="confirm-card">
+        <div class="confirm-header">
+            <div class="confirm-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>BOOKING CONFIRMED</h2>
+            <p>Your parking space has been successfully reserved in the database.</p>
+        </div>
+
+        <div class="ticket-receipt">
+            <div class="ticket-row">
+                <span class="ticket-label">Booking ID</span>
+                <span class="ticket-val code">{{ booking.booking_code }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Allocated Parking Slot</span>
+                <span class="ticket-val slot-highlight">{{ booking.slot_number }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Vehicle Number</span>
+                <span class="ticket-val">{{ booking.vehicle_number }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Slot Type</span>
+                <span class="ticket-val">{{ booking.slot_type }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Booking Time</span>
+                <span class="ticket-val">{{ booking.booking_time }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Reservation Status</span>
+                <span class="ticket-val"><span class="badge badge-warning">{{ booking.status }}</span></span>
+            </div>
+        </div>
+
+        <div class="confirm-actions">
+            <a href="{{ url_for('my_booking') }}" class="btn btn-primary">
+                <i class="fa-solid fa-ticket"></i> View My Booking
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline">
+                <i class="fa-solid fa-gauge"></i> Go to Dashboard
+            </a>
+            <a href="{{ url_for('parking') }}" class="btn btn-outline">
+                <i class="fa-solid fa-map-location-dot"></i> View Parking Grid
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

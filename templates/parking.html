@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Digital Parking Layout - Smart Parking System{% endblock %}
+
+{% block content %}
+<div class="parking-container">
+
+  <!-- Header & Legend Bar -->
+  <div class="parking-layout-card">
+    <div class="layout-header">
+      <div>
+        <h2 style="font-size: 1.6rem; color: var(--secondary-color);">Digital Parking Layout</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Real-time 2D spatial arrangement based on database status</p>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="dot available"></span> Available</div>
+        <div class="legend-item"><span class="dot occupied"></span> Occupied</div>
+        <div class="legend-item"><span class="dot reserved"></span> Reserved</div>
+        <div class="legend-item"><span class="dot unavailable"></span> Unavailable</div>
+      </div>
+    </div>
+
+    <!-- Quick Action / Find Parking -->
+    {% if session.get('user_id') %}
+      <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+        <form action="{{ url_for('find_parking') }}" method="POST" style="margin: 0;">
+          <button type="submit" class="btn btn-primary" style="font-size: 0.9rem;">
+            &#9889; Find Parking (Recommend Best Slot)
+          </button>
+        </form>
+        <div class="filter-group" style="margin-left: auto; display: flex; gap: 0.4rem;">
+          <button class="btn btn-secondary active" data-filter="all" style="padding: 0.3rem 0.75rem; font-size: 0.8rem;">All</button>
+          <button class="btn btn-secondary" data-filter="available" style="padding: 0.3rem 0.75rem; font-size: 0.8rem;">Available</button>
+          <button class="btn btn-secondary" data-filter="occupied" style="padding: 0.3rem 0.75rem; font-size: 0.8rem;">Occupied</button>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Visual Digital Map Architecture -->
+    <div class="parking-map">
+      <div class="entry-exit-bar">&#8595; CAMPUS ENTRY & VEHICLE APPROACH &#8595;</div>
+
+      <!-- ROW A (A1..A4) -->
+      <div style="font-size: 0.8rem; font-weight: 700; color: #94a3b8; margin: 0.5rem 0 0.25rem 0; text-transform: uppercase;">Zone A — North Bays</div>
+      <div class="slot-row">
+        {% for slot in slots if slot.slot_number.startswith('A') %}
+          <div class="slot-card status-{{ slot.status.lower() }}">
+            <div class="slot-number">{{ slot.slot_number }}</div>
+            <span class="slot-status-badge">{{ slot.status }}</span>
+            <div class="slot-details">
+              {% if slot.vehicle_number %}
+                {{ slot.vehicle_number }}
+              {% else %}
+                Type: {{ slot.slot_type }}
+              {% endif %}
+            </div>
+            {% if session.get('user_id') and slot.status == 'Available' %}
+              <form action="{{ url_for('reserve_slot', slot_id=slot.id) }}" method="POST" style="margin-top: 0.5rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; width: 100%;">Reserve</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- DRIVEWAY 1 LANE -->
+      <div class="driveway-lane">&#8644; DRIVEWAY LANE 1 — TWO-WAY CIRCULATION &#8644;</div>
+
+      <!-- ROW B (B1..B4) -->
+      <div style="font-size: 0.8rem; font-weight: 700; color: #94a3b8; margin: 0.5rem 0 0.25rem 0; text-transform: uppercase;">Zone B — Central Bays</div>
+      <div class="slot-row">
+        {% for slot in slots if slot.slot_number.startswith('B') %}
+          <div class="slot-card status-{{ slot.status.lower() }}">
+            <div class="slot-number">{{ slot.slot_number }}</div>
+            <span class="slot-status-badge">{{ slot.status }}</span>
+            <div class="slot-details">
+              {% if slot.vehicle_number %}
+                {{ slot.vehicle_number }}
+              {% else %}
+                Type: {{ slot.slot_type }}
+              {% endif %}
+            </div>
+            {% if session.get('user_id') and slot.status == 'Available' %}
+              <form action="{{ url_for('reserve_slot', slot_id=slot.id) }}" method="POST" style="margin-top: 0.5rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; width: 100%;">Reserve</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- DRIVEWAY 2 LANE -->
+      <div class="driveway-lane">&#8644; DRIVEWAY LANE 2 — TWO-WAY CIRCULATION &#8644;</div>
+
+      <!-- ROW C (C1..C4) -->
+      <div style="font-size: 0.8rem; font-weight: 700; color: #94a3b8; margin: 0.5rem 0 0.25rem 0; text-transform: uppercase;">Zone C — South Bays</div>
+      <div class="slot-row">
+        {% for slot in slots if slot.slot_number.startswith('C') %}
+          <div class="slot-card status-{{ slot.status.lower() }}">
+            <div class="slot-number">{{ slot.slot_number }}</div>
+            <span class="slot-status-badge">{{ slot.status }}</span>
+            <div class="slot-details">
+              {% if slot.vehicle_number %}
+                {{ slot.vehicle_number }}
+              {% else %}
+                Type: {{ slot.slot_type }}
+              {% endif %}
+            </div>
+            {% if session.get('user_id') and slot.status == 'Available' %}
+              <form action="{{ url_for('reserve_slot', slot_id=slot.id) }}" method="POST" style="margin-top: 0.5rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; width: 100%;">Reserve</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="entry-exit-bar" style="margin-top: 1rem;">&#8595; CAMPUS EXIT &#8595;</div>
+    </div>
+  </div>
+
+  <!-- Virtual Sensor Status Panel (EEE Contribution) -->
+  <div class="sensor-card">
+    <div class="sensor-header">
+      <div>
+        <h3>Parking Sensor Telemetry (EEE Contribution)</h3>
+        <p class="sensor-note">Virtual sensor simulation — hardware integration planned for future development.</p>
+      </div>
+      <span style="background-color: #dbeafe; color: #1e40af; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px;">
+        12 Active Nodes
+      </span>
+    </div>
+
+    <div class="sensor-grid">
+      {% for slot in slots %}
+        <div class="sensor-item">
+          <div class="sensor-slot">Slot {{ slot.slot_number }}</div>
+          {% if slot.status == 'Occupied' %}
+            <div class="sensor-val det">&#10071; Vehicle Detected</div>
+          {% elif slot.status == 'Reserved' %}
+            <div class="sensor-val" style="color: #d97706;">&#128274; Reserved</div>
+          {% else %}
+            <div class="sensor-val clr">&#10004; No Vehicle</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

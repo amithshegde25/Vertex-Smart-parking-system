@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Smart Parking Management System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <h1>Smart Parking Management System</h1>
+  <p>Find and manage parking spaces efficiently with intelligent slot allocation.</p>
+  <div class="hero-actions">
+    {% if session.get('user_id') %}
+      <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Find Parking</a>
+      <a href="{{ url_for('parking_layout') }}" class="btn btn-outline">View Parking Map</a>
+    {% else %}
+      <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+      <a href="{{ url_for('login') }}" class="btn btn-outline">Log In</a>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Live Statistics Section -->
+<section style="margin-bottom: 2.5rem;">
+  <div style="text-align: center; margin-bottom: 1.5rem;">
+    <h2 style="font-size: 1.6rem; color: var(--secondary-color);">Real-Time Parking Statistics</h2>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">Live slot availability updated directly from SQLite database</p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon icon-total">P</div>
+      <div class="stat-info">
+        <h3>{{ total_slots }}</h3>
+        <p>Total Slots</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon icon-available">&#10003;</div>
+      <div class="stat-info">
+        <h3>{{ available_slots }}</h3>
+        <p>Available Slots</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon icon-occupied">&#10007;</div>
+      <div class="stat-info">
+        <h3>{{ occupied_slots }}</h3>
+        <p>Occupied Slots</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon icon-reserved">&#128274;</div>
+      <div class="stat-info">
+        <h3>{{ reserved_slots }}</h3>
+        <p>Reserved Slots</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Cards Section -->
+<section>
+  <div class="features-header">
+    <h2>System Key Features</h2>
+    <p style="color: var(--text-muted);">Intelligent software solutions for modern campus & urban parking</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">&#128202;</span>
+      <h3>Real-Time Slot Status</h3>
+      <p>Instant digital visibility of all 12 parking slots categorized by Available, Occupied, Reserved, or Unavailable status.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">&#129302;</span>
+      <h3>Intelligent Slot Allocation</h3>
+      <p>Automated slot recommendation logic that evaluates proximity and vehicle type to select the most optimal parking spot.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">&#128241;</span>
+      <h3>Easy Parking Management</h3>
+      <p>Streamlined user reservation workflow with instant booking reference numbers and vehicle tracking.</p>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">&#128506;</span>
+      <h3>Efficient Space Utilization</h3>
+      <p>Optimized 2D digital layout design preventing traffic congestion at entry points and maximizing throughput.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Engineering Contributions Section -->
+<section class="eng-section">
+  <h2>Engineering Project Multidisciplinary Scope</h2>
+  <div class="eng-grid">
+    <div class="eng-box civil">
+      <h4>Civil Engineering</h4>
+      <p>Layout optimization considering entry/exit driving lanes, aisle widths, vehicle turning radii, and circulation geometry.</p>
+    </div>
+    <div class="eng-box mech">
+      <h4>Mechanical Engineering</h4>
+      <p>Vehicle dimension classification (Car/SUV/Two-Wheeler), slot spatial clearance, and dynamic vehicle approach trajectories.</p>
+    </div>
+    <div class="eng-box eee">
+      <h4>Electrical & Electronics (EEE)</h4>
+      <p>Virtual ultrasonic sensor simulation pipeline mapping physical occupancy state to software database updates.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

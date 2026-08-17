@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Smart Parking System{% endblock %}
+
+{% block content %}
+<!-- Welcome & Vehicle Info Card -->
+<div class="dashboard-user-card">
+  <div class="user-welcome">
+    <h2>Welcome, {{ user.name }}</h2>
+    <p>Logged in as <strong>{{ user.email }}</strong></p>
+  </div>
+  <div class="vehicle-pill">
+    <span>&#128663;</span>
+    <span>Vehicle: <strong>{{ user.vehicle_number }}</strong> ({{ user.vehicle_type }})</span>
+  </div>
+</div>
+
+<!-- Recommended Parking Slot Widget (Intelligent Allocation Result) -->
+{% if recommended_slot %}
+  <div class="recommended-banner">
+    <div class="recommended-info">
+      <h3>Recommended Parking Slot</h3>
+      <p>Intelligent algorithm selected optimal slot based on entry proximity and vehicle type.</p>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span class="slot-tag">{{ recommended_slot.slot_number }}</span>
+      <form action="{{ url_for('reserve_slot', slot_id=recommended_slot.id) }}" method="POST" style="margin: 0;">
+        <button type="submit" class="btn btn-primary" style="background-color: #22c55e; border-color: #16a34a; font-size: 1rem; padding: 0.6rem 1.25rem;">
+          Reserve {{ recommended_slot.slot_number }}
+        </button>
+      </form>
+    </div>
+  </div>
+{% elif active_booking %}
+  <div class="alert alert-info" style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem;">
+    <div>
+      <strong>Active Booking Found!</strong> You currently have slot <strong>{{ active_booking.slot_number }}</strong> reserved (Ref: {{ active_booking.booking_reference }}).
+    </div>
+    <a href="{{ url_for('my_booking') }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">View Booking Receipt</a>
+  </div>
+{% endif %}
+
+<!-- Parking Statistics Summary -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon icon-total">P</div>
+    <div class="stat-info">
+      <h3>{{ stats.total }}</h3>
+      <p>Total Slots</p>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-available">&#10003;</div>
+    <div class="stat-info">
+      <h3>{{ stats.available }}</h3>
+      <p>Available Slots</p>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-occupied">&#10007;</div>
+    <div class="stat-info">
+      <h3>{{ stats.occupied }}</h3>
+      <p>Occupied Slots</p>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-reserved">&#128274;</div>
+    <div class="stat-info">
+      <h3>{{ stats.reserved }}</h3>
+      <p>Reserved Slots</p>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Navigation Action Buttons -->
+<div style="background-color: var(--surface-color); padding: 1.75rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); margin-bottom: 2rem;">
+  <h3 style="font-size: 1.2rem; color: var(--secondary-color); margin-bottom: 1rem;">Quick Actions</h3>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <form action="{{ url_for('find_parking') }}" method="POST" style="margin:0;">
+      <button type="submit" class="btn btn-primary">Find Parking (Intelligent Allocation)</button>
+    </form>
+    <a href="{{ url_for('parking_layout') }}" class="btn btn-secondary">View Parking Layout Map</a>
+    <a href="{{ url_for('my_booking') }}" class="btn btn-secondary">My Booking</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger" style="margin-left: auto;">Logout</a>
+  </div>
+</div>
+
+<!-- Brief Civil/EEE System Architecture Note -->
+<div style="background-color: #f8fafc; border-left: 4px solid var(--primary-color); padding: 1rem 1.25rem; border-radius: 4px; font-size: 0.875rem; color: var(--text-muted);">
+  <strong>System Status Note:</strong> Digital parking layout is synced in real-time with SQLite database. Slot allocation uses shortest-path logic from the campus entryway.
+</div>
+{% endblock %}

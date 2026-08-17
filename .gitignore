@@ -1,0 +1,19 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# SQLite Database (will be created automatically by database/init_db.py)
+parking.db
+
+# IDE & OS settings
+.vscode/
+.idea/
+.DS_Store
+*.log

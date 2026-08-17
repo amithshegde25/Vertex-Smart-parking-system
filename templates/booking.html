@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}My Booking - Smart Parking System{% endblock %}
+
+{% block content %}
+<div style="max-width: 700px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <h2 style="font-size: 1.8rem; color: var(--secondary-color);">My Booking Receipt</h2>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Manage your active parking slot reservation</p>
+  </div>
+
+  {% if booking %}
+    <div class="booking-card">
+      <div class="booking-header">
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">BOOKING CONFIRMED</span>
+          <h3 style="font-size: 1.25rem; margin-top: 0.2rem;">Reservation Receipt</h3>
+        </div>
+        <div class="booking-id">Ref: {{ booking.booking_reference }}</div>
+      </div>
+
+      <table class="booking-details-table">
+        <tr>
+          <th>User Name</th>
+          <td>{{ booking.user_name }}</td>
+        </tr>
+        <tr>
+          <th>Registered Email</th>
+          <td>{{ booking.user_email }}</td>
+        </tr>
+        <tr>
+          <th>Vehicle Registration</th>
+          <td><span style="background-color: #f1f5f9; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: monospace;">{{ booking.vehicle_number }}</span></td>
+        </tr>
+        <tr>
+          <th>Reserved Parking Slot</th>
+          <td><span style="color: var(--primary-color); font-weight: 800; font-size: 1.2rem;">{{ booking.slot_number }}</span> (Zone {{ booking.slot_number[0] }})</td>
+        </tr>
+        <tr>
+          <th>Booking Timestamp</th>
+          <td>{{ booking.booking_time }}</td>
+        </tr>
+        <tr>
+          <th>Reservation Status</th>
+          <td>
+            <span class="slot-status-badge" style="background-color: var(--status-reserved-bg); color: var(--status-reserved-text); border: 1px solid var(--status-reserved-border); padding: 0.3rem 0.75rem; font-size: 0.85rem;">
+              {{ booking.status }}
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <div style="display: flex; gap: 1rem; justify-content: space-between; align-items: center; background-color: #f8fafc; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color);">
+        <a href="{{ url_for('parking_layout') }}" class="btn btn-secondary" style="font-size: 0.875rem;">View Layout Map</a>
+        <form action="{{ url_for('cancel_booking', booking_id=booking.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel your reservation for {{ booking.slot_number }}?');">
+          <button type="submit" class="btn btn-danger" style="font-size: 0.875rem;">Cancel Reservation</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div style="background-color: var(--surface-color); padding: 3rem 2rem; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">&#128197;</div>
+      <h3 style="font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 0.5rem;">No Active Booking Found</h3>
+      <p style="color: var(--text-muted); max-width: 450px; margin: 0 auto 1.5rem auto;">You currently do not have any active parking slot reservations linked to your account.</p>
+      <form action="{{ url_for('find_parking') }}" method="POST" style="margin: 0;">
+        <button type="submit" class="btn btn-primary">Find & Reserve Parking Now</button>
+      </form>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
