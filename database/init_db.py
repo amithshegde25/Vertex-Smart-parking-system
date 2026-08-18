@@ -2,7 +2,10 @@ import sqlite3
 import os
 
 def get_db_path():
-    # Store database in the root project folder
+    # If running on Vercel serverless functions, use writable /tmp folder
+    if os.environ.get('VERCEL'):
+        return '/tmp/parking.db'
+    # Store database in the root project folder locally
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_dir, 'parking.db')
 
