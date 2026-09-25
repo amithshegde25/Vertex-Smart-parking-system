@@ -1,4 +1,4 @@
-# 🚗 Vertex Smart Parking System
+#  Vertex Smart Parking System
 
 ### Smart Parking Management System Using Intelligent Slot Allocation
 
@@ -14,7 +14,7 @@ The application is built using **Python Flask, SQLite, HTML5, CSS3, JavaScript, 
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 Finding an appropriate parking space in a crowded parking facility can waste time and increase unnecessary vehicle movement.
 
@@ -35,7 +35,7 @@ The application also includes a **virtual sensor telemetry interface**, represen
 
 ---
 
-# 🎯 Objectives
+#  Objectives
 
 The major objectives of the project are:
 
@@ -68,9 +68,9 @@ Users can create an account by providing:
 
 Supported vehicle classifications include:
 
-* 🚗 Car
-* 🚙 SUV
-* 🏍️ Two-Wheeler
+*  Car
+*  SUV
+*  Two-Wheeler
 
 Passwords are stored using **Werkzeug password hashing** rather than storing plaintext passwords.
 
@@ -96,7 +96,7 @@ The current system is initialized with **12 parking slots**.
 
 ---
 
-## 🅿️ 3. Digital 2D Parking Layout
+##  3. Digital 2D Parking Layout
 
 The parking facility is represented digitally using a 2D layout.
 
@@ -147,7 +147,7 @@ The system uses these states to maintain an up-to-date representation of the par
 
 ---
 
-# 🧠 4. Intelligent Slot Allocation
+#  4. Intelligent Slot Allocation
 
 The main feature that differentiates this project from a basic parking-booking website is the **Intelligent Slot Allocation Algorithm**.
 
@@ -202,7 +202,7 @@ This provides a foundation for more advanced routing and optimization algorithms
 
 ---
 
-# 📅 5. Parking Reservation
+#  5. Parking Reservation
 
 Once a suitable slot is identified, the user can create a parking reservation.
 
@@ -259,7 +259,7 @@ The booking record stores information such as:
 
 ---
 
-# 🔄 7. Booking Status Management
+#  7. Booking Status Management
 
 Bookings can have different states:
 
@@ -319,7 +319,7 @@ This creates a foundation for future hardware integration using technologies suc
 
 ---
 
-# 🏗️ System Architecture
+#  System Architecture
 
 The current system follows a simple web-application architecture:
 
@@ -463,7 +463,7 @@ for verifying login credentials.
 
 ---
 
-# 🗄️ Database Design
+#  Database Design
 
 The application uses three primary database tables.
 
@@ -523,7 +523,7 @@ Stores reservation information.
 
 ---
 
-# 🔗 Database Relationships
+#  Database Relationships
 
 The relationship between the tables can be represented as:
 
@@ -776,7 +776,7 @@ For production deployment, environment-specific configuration such as the Flask 
 
 ---
 
-# 🧪 Example User Journey
+#  Example User Journey
 
 A typical user interaction looks like this:
 
@@ -856,7 +856,7 @@ Protected routes use a login-check mechanism to prevent unauthenticated users fr
 
 ---
 
-# 🧮 Parking Statistics
+#  Parking Statistics
 
 Parking statistics are calculated from the current database state.
 
@@ -873,11 +873,11 @@ This means the dashboard is not simply displaying hard-coded numbers; it can der
 
 ---
 
-# 🧩 Multidisciplinary Engineering Concept
+#  Multidisciplinary Engineering Concept
 
 The project demonstrates concepts from multiple engineering disciplines.
 
-## 💻 Computer Science
+##  Computer Science
 
 * Web development
 * Database management
@@ -886,7 +886,7 @@ The project demonstrates concepts from multiple engineering disciplines.
 * Algorithms
 * User-interface design
 
-## 🏗️ Civil Engineering
+##  Civil Engineering
 
 * Parking layout
 * Slot geometry
@@ -894,14 +894,14 @@ The project demonstrates concepts from multiple engineering disciplines.
 * Space utilization
 * Vehicle circulation
 
-## ⚙️ Mechanical Engineering
+##  Mechanical Engineering
 
 * Vehicle classifications
 * Vehicle dimensions
 * Parking-space requirements
 * Vehicle maneuverability
 
-## ⚡ Electrical & Electronics Engineering
+##  Electrical & Electronics Engineering
 
 The current project uses **virtual sensor telemetry** as a software representation.
 
@@ -915,7 +915,7 @@ The architecture can later be connected to:
 
 ---
 
-# ⚠️ Current Scope & Limitations
+#  Current Scope & Limitations
 
 This version focuses primarily on the **software implementation** of the smart parking system.
 
@@ -1102,25 +1102,25 @@ The system can be adapted for:
 
 ---
 
-# ⭐ Project Highlights
+#  Project Highlights
 
-* 🅿️ Digital parking management
-* 🧠 Intelligent proximity-based slot allocation
-* 🔐 User authentication
-* 🚗 Vehicle information management
-* 📊 Dynamic parking statistics
-* 📅 Reservation system
-* 🎫 Unique booking references
-* 🗄️ SQLite persistence
-* 📡 Virtual sensor telemetry
-* 🗺️ Interactive 2D parking layout
-* 🌐 Web-based architecture
-* ☁️ Vercel deployment
-* 🔮 Expandable toward IoT and smart-city applications
+*  Digital parking management
+*  Intelligent proximity-based slot allocation
+*  User authentication
+*  Vehicle information management
+*  Dynamic parking statistics
+*  Reservation system
+*  Unique booking references
+*  SQLite persistence
+*  Virtual sensor telemetry
+*  Interactive 2D parking layout
+*  Web-based architecture
+*  Vercel deployment
+*  Expandable toward IoT and smart-city applications
 
 ---
 
-# 🛡️ Security Notes
+#  Security Notes
 
 The application uses password hashing through Werkzeug rather than storing plaintext passwords.
 
@@ -1140,7 +1140,7 @@ For a production deployment, additional security improvements should be implemen
 
 ---
 
-# 🤝 Contributing
+#  Contributing
 
 Contributions and improvements are welcome.
 
@@ -1162,7 +1162,7 @@ Create a Pull Request on GitHub.
 
 ---
 
-# 📜 License
+#  License
 
 This project was developed as an **engineering college project**.
 
@@ -1170,7 +1170,7 @@ If the project is intended for open-source distribution, an explicit license suc
 
 ---
 
-# 👨‍💻 Project
+#  Project
 
 **Vertex Smart Parking System**
 
@@ -1183,7 +1183,7 @@ If the project is intended for open-source distribution, an explicit license suc
 
 ---
 
-## 📌 Summary
+##  Summary
 
 **Vertex Smart Parking System** is a web-based parking-management platform that combines digital parking visualization, database-backed slot management, intelligent proximity-based slot allocation, user authentication, and parking reservations.
 
